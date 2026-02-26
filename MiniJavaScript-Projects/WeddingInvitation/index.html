@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wedding Invitation</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Georgia, serif;
+            background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Envelope */
+        .envelope {
+            width: 300px;
+            height: 200px;
+            background: #fff;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Stamp */
+        .stamp {
+            width: 80px;
+            height: 80px;
+            background: #d63384;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .stamp:hover {
+            transform: scale(1.1);
+        }
+
+        /* Invitation Card */
+        .card {
+            position: absolute;
+            width: 320px;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: scale(0);
+            transition: 0.6s ease;
+        }
+
+        .card.show {
+            transform: scale(1);
+        }
+
+        h2 {
+            color: #d63384;
+            margin: 10px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="envelope" id="envelope">
+    <div class="stamp" onclick="openInvite()">Open</div>
+</div>
+
+<div class="card hidden" id="card">
+    <h1>Wedding Invitation 💍</h1>
+    <h2>Ayesha ❤️ Ahmed</h2>
+    <p>We are getting married!</p>
+    <p><strong>Date:</strong> 20th December 2026</p>
+    <p><strong>Venue:</strong> Royal Palace Hall</p>
+    <p>We would love to see you there 💕</p>
+</div>
+
+<script>
+    function openInvite() {
+        document.getElementById("envelope").style.display = "none";
+        let card = document.getElementById("card");
+        card.classList.remove("hidden");
+        setTimeout(() => {
+            card.classList.add("show");
+        }, 100);
+    }
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wedding Invitation</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, #fbc2eb, #a6c1ee, #fbc2eb);
+            background-size: 400% 400%;
+            animation: bgMove 10s infinite alternate;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @keyframes bgMove {
+            0% { background-position: left; }
+            100% { background-position: right; }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 50px;
+            border-radius: 25px;
+            text-align: center;
+            width: 400px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .title {
+            font-size: 26px;
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        .names {
+            font-family: 'Great Vibes', cursive;
+            font-size: 40px;
+            color: #d63384;
+            margin: 15px 0;
+            opacity: 0;
+            animation: fadeIn 2s 2s forwards;
+        }
+
+        .details {
+            margin-top: 15px;
+            font-size: 16px;
+            opacity: 0;
+            animation: fadeIn 2s 4s forwards;
+        }
+
+        .heart {
+            font-size: 22px;
+            color: #ff4d6d;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <div class="title">WEDDING INVITATION</div>
+
+    <div class="names">
+        Ayesha <span class="heart">❤</span> Ahmed
+    </div>
+
+    <div class="details">
+        <p>We joyfully invite you to celebrate our wedding</p>
+        <p><strong>Date:</strong> 20 December 2026</p>
+        <p><strong>Time:</strong> 7:00 PM</p>
+        <p><strong>Venue:</strong> Royal Palace Hall</p>
+    </div>
+</div>
+
+</body>
+</html>

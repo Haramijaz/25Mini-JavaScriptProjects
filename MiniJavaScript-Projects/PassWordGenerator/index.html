@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Password Generator</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#1e1e2f,#2c2c4a);
+}
+
+.container{
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(15px);
+  padding:30px;
+  border-radius:20px;
+  width:350px;
+  color:white;
+  box-shadow:0 0 25px rgba(0,0,0,0.4);
+}
+
+h2{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.password-box{
+  display:flex;
+  margin-bottom:15px;
+}
+
+.password-box input{
+  flex:1;
+  padding:10px;
+  border:none;
+  border-radius:8px 0 0 8px;
+  outline:none;
+}
+
+.password-box button{
+  padding:10px;
+  border:none;
+  background:#00f7ff;
+  cursor:pointer;
+  border-radius:0 8px 8px 0;
+  font-weight:bold;
+}
+
+.options{
+  margin:15px 0;
+}
+
+.options label{
+  display:block;
+  margin:8px 0;
+  font-size:14px;
+}
+
+input[type="range"]{
+  width:100%;
+}
+
+.generate-btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  background:#00f7ff;
+  font-weight:bold;
+  cursor:pointer;
+  border-radius:10px;
+  margin-top:10px;
+  transition:0.3s;
+}
+
+.generate-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px #00f7ff;
+}
+
+.strength{
+  margin-top:10px;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Password Generator</h2>
+
+  <div class="password-box">
+    <input type="text" id="password" readonly>
+    <button onclick="copyPassword()">Copy</button>
+  </div>
+
+  <div class="options">
+    <label>Password Length: <span id="lengthValue">12</span></label>
+    <input type="range" min="6" max="25" value="12" id="length">
+
+    <label><input type="checkbox" id="uppercase" checked> Include Uppercase</label>
+    <label><input type="checkbox" id="lowercase" checked> Include Lowercase</label>
+    <label><input type="checkbox" id="numbers" checked> Include Numbers</label>
+    <label><input type="checkbox" id="symbols"> Include Symbols</label>
+  </div>
+
+  <button class="generate-btn" onclick="generatePassword()">Generate Password</button>
+
+  <div class="strength">
+    Strength: <span id="strengthText">Medium</span>
+  </div>
+</div>
+
+<script>
+const lengthSlider = document.getElementById("length");
+const lengthValue = document.getElementById("lengthValue");
+const passwordField = document.getElementById("password");
+const strengthText = document.getElementById("strengthText");
+
+lengthSlider.oninput = function(){
+  lengthValue.textContent = this.value;
+};
+
+function generatePassword(){
+  const length = lengthSlider.value;
+  const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const lowercase = "abcdefghijklmnopqrstuvwxyz";
+  const numbers = "0123456789";
+  const symbols = "!@#$%^&*()_+";
+
+  let characters = "";
+
+  if(document.getElementById("uppercase").checked) characters += uppercase;
+  if(document.getElementById("lowercase").checked) characters += lowercase;
+  if(document.getElementById("numbers").checked) characters += numbers;
+  if(document.getElementById("symbols").checked) characters += symbols;
+
+  if(characters === ""){
+    alert("Please select at least one option!");
+    return;
+  }
+
+  let password = "";
+  for(let i=0;i<length;i++){
+    password += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+
+  passwordField.value = password;
+  checkStrength(password);
+}
+
+function copyPassword(){
+  passwordField.select();
+  document.execCommand("copy");
+  alert("Password Copied!");
+}
+
+function checkStrength(password){
+  let strength = 0;
+
+  if(password.length >= 8) strength++;
+  if(/[A-Z]/.test(password)) strength++;
+  if(/[0-9]/.test(password)) strength++;
+  if(/[!@#$%^&*()_+]/.test(password)) strength++;
+
+  if(strength <= 2){
+    strengthText.textContent = "Weak";
+    strengthText.style.color = "red";
+  } else if(strength === 3){
+    strengthText.textContent = "Medium";
+    strengthText.style.color = "orange";
+  } else {
+    strengthText.textContent = "Strong";
+    strengthText.style.color = "lime";
+  }
+}
+</script>
+
+</body>
+</html>

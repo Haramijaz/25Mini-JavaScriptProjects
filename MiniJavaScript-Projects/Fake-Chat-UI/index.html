@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake Chat UI</title>
+    <style>
+        /* Body and background */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+        }
+
+        /* Chat container */
+        .chat-container {
+            width: 350px;
+            height: 600px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Chat header */
+        .chat-header {
+            background: #075E54;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Chat messages area */
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Message bubbles */
+        .message {
+            max-width: 70%;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 15px;
+            word-wrap: break-word;
+        }
+
+        .sent {
+            align-self: flex-end;
+            background: #dcf8c6;
+        }
+
+        .received {
+            align-self: flex-start;
+            background: white;
+        }
+
+        /* Input area */
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            background: #eee;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        .chat-input button {
+            margin-left: 10px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 50%;
+            background: #075E54;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Scrollbar */
+        .chat-messages::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="chat-container">
+    <div class="chat-header">Ayesha 💬 Ahmed</div>
+
+    <div class="chat-messages" id="messages">
+        <div class="message received">Hi there! Welcome to our chat 😄</div>
+    </div>
+
+    <div class="chat-input">
+        <input type="text" id="chatInput" placeholder="Type a message..." />
+        <button onclick="sendMessage()">➤</button>
+    </div>
+</div>
+
+<script>
+    const messages = document.getElementById("messages");
+    const chatInput = document.getElementById("chatInput");
+
+    function sendMessage() {
+        const text = chatInput.value.trim();
+        if(text === "") return;
+
+        // Create sent message bubble
+        const msg = document.createElement("div");
+        msg.classList.add("message", "sent");
+        msg.innerText = text;
+        messages.appendChild(msg);
+
+        chatInput.value = "";
+
+        // Auto scroll to bottom
+        messages.scrollTop = messages.scrollHeight;
+
+        // Fake reply after 1 second
+        setTimeout(() => {
+            const reply = document.createElement("div");
+            reply.classList.add("message", "received");
+            reply.innerText = "Echo: " + text; // Fake reply
+            messages.appendChild(reply);
+            messages.scrollTop = messages.scrollHeight;
+        }, 1000);
+    }
+
+    // Allow enter key to send message
+    chatInput.addEventListener("keydown", function(event){
+        if(event.key === "Enter"){
+            sendMessage();
+        }
+    });
+</script>
+
+</body>
+</html>
